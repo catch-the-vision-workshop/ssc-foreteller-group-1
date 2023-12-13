@@ -35,7 +35,7 @@ We will be creating our very own weather forecast application. We will be coveri
     "condition": "Partly cloudy",
     "chanceOfRain": 0,
     "textColor": "black",
-    "moistLevel": 0,
+    "moistLevel": 6,
     "moonPhase": "Waning Crescent",
     "averageTemp": 0,
     "maxTemp": null,

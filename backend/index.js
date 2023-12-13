@@ -38,19 +38,21 @@ app.get("/getForecast", async (req, res) => {
 		const data = await result.json();
 
 		// TODO: Determine text color based on temperature
-		let textColor = "black";
-		if (data.temp_c < 0){
+		let textColor = "";
+		if (data.current.temp_c < 0){
 			textColor = "cyan";
 		}
-		else if( data.temp_c < 15){
+		else if( data.current.temp_c < 15){
 			textColor = "blue";
 		}
-		else if(data.temp_c < 30){
+		else if(data.current.temp_c < 30){
 			textColor = "orange";
 		}
 		else {
 			textColor = "red"
 		}
+
+		
 
 		// TODO: Calculate moisture level, divide by 10
 		let moistLevel = data.current.humidity /10;
@@ -61,11 +63,11 @@ app.get("/getForecast", async (req, res) => {
 		let sumTemp = 0;
 		let maxTemp = -Infinity;
 		let minTemp = Infinity;
-		for (let i=0; hours.length, i++;) {
-			const  Temp=  hours[i].temp_c;
+
+		for (let i=0; i < hours.length; i++) {
+			const Temp =  hours[i].temp_c;
 			sumTemp = sumTemp + Temp;
 			
-
 			if (hours[i].temp_c > maxTemp) {
 				maxTemp = hours[i].temp_c;
 			}
@@ -87,6 +89,17 @@ app.get("/getForecast", async (req, res) => {
 				maxUVTime = hours[i].maxUVTime
 			}
 		}
+
+		// for (let i = 0; i< hours.length; i++) {
+		// 	const uvIndex = hours[i].uv;
+		// 	const time = hours[i].time;
+
+		// 	if(uvIndex > maxUVIndex){
+		// 		maxUVIndex = uvIndex;
+		// 		maxUVTime = time;
+		// 	}
+		// }
+
 		// Structure and send the response data
 		res.json({
 			city: data.location.name,
